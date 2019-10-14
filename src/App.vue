@@ -76,8 +76,17 @@
             <div class="card">
               <div class="card-body">
                 <ul class="list-group">
-                  <li class="list-group-item" v-for="domain in domains" v-bind:key="domain">
-                    {{ domain }}
+                  <li class="list-group-item" v-for="domain in domains" v-bind:key="domain.name">
+                    <div class="row">
+                      <div class="col-md">
+                        {{ domain.name }}
+                      </div>
+                      <div class="col-md text-right">
+                        <a class="btn btn-info" v-bind:href="domain.checkout" target="_blank">
+                          <span class="fa fa-shopping-cart"></span>
+                        </a>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -100,36 +109,39 @@ export default {
 			prefix: "",
 			sufix: "",
 			prefixos: ["Air", "Jet", "Flight"],
-			sufixos: ["Hub", "Station", "Mart"],
-			domains: ["AirHub", "AirStation", "AirMart", "JetHub", "JetStation", "JetMart", "FlightHub", "FlighStation", "FlightMart"]
+			sufixos: ["Hub", "Station", "Mart"]
 		};
 	},
 	methods: {
 		addPrefix(prefix) {
 			this.prefixos.push(prefix);
 			this.prefix = "";
-			this.generate();
 		},
 		deletePrefixos(prefix) {
 			this.prefixos.splice(this.prefixos.indexOf(prefix), 1);
-			this.generate();
 		},
 		addSufix(sufix) {
 			this.sufixos.push(sufix);
 			this.sufix = "";
-			this.generate();
 		},
 		deleteSufixos(sufix) {
 			this.sufixos.splice(this.sufixos.indexOf(sufix), 1);
-			this.generate();
-		},
-		generate() {
-			this.domains = [];
+		}
+	},
+	computed: {
+		domains(){
+			const domains = [];
 			for(const prefix of this.prefixos) {
 				for(const sufix of this.sufixos) {
-					this.domains.push(prefix + sufix);
+					const name = prefix + sufix;
+					const checkout = `https://checkout.hostgator.com.br/?a=add&sld=${name.toLowerCase()}&tld=.com.br`;
+					domains.push({
+						name,
+						checkout
+					});
 				}
 			}
+			return domains;
 		}
 	}
 };
