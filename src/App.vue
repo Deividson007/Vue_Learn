@@ -6,94 +6,7 @@
       <h6 class="text-secondary">Gerador de Nomes</h6>
     </div>
     <div id="main">
-      <div class="container">
-        <div class="row">
-          <div class="col-md">
-            <h5>Prefixos <span class="badge badge-info">{{ prefixos.length }}</span></h5>
-            <div class="card">
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="prefixo in prefixos" v-bind:key="prefixo">
-                    <div class="row">
-                      <div class="col-md">
-                        {{ prefixo }}
-                      </div>
-                      <div class="col-md text-right">
-                        <button class="btn btn-info" v-on:click="deletePrefixos(prefix)">
-                          <span class="fa fa-trash"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-                <br>
-                <div class="input-group">
-                  <input type="text" class="form-control" v-model="prefix" v-on:keyup.enter="addPrefix(prefix)" placeholder="digite o prefixo">
-                  <div class="input-group-append">
-                    <button class="btn btn-info" v-on:click="addPrefix(prefix)">
-                      <span class="fa fa-plus"></span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md">
-            <h5>Sufixos <span class="badge badge-info">{{ sufixos.length }}</span></h5>
-            <div class="card">
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="sufixo in sufixos" v-bind:key="sufixo">
-                    <div class="row">
-                      <div class="col-md">
-                        {{ sufixo }}
-                      </div>
-                      <div class="col-md text-right">
-                        <button class="btn btn-info" v-on:click="deleteSufixos(sufix)">
-                          <span class="fa fa-trash"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-                <br>
-                <div class="input-group">
-                  <input type="text" class="form-control" v-model="sufix" v-on:keyup.enter="addSufix(sufix)" placeholder="digite o sufixo">
-                  <div class="input-group-append">
-                    <button class="btn btn-info" v-on:click="addSufix(sufix)">
-                      <span class="fa fa-plus"></span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md">
-            <h5>Domains <span class="badge badge-info">{{ domains.length }}</span></h5>
-            <div class="card">
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="domain in domains" v-bind:key="domain.name">
-                    <div class="row">
-                      <div class="col-md">
-                        {{ domain.name }}
-                      </div>
-                      <div class="col-md text-right">
-                        <a class="btn btn-info" v-bind:href="domain.checkout" target="_blank">
-                          <span class="fa fa-shopping-cart"></span>
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <DomainList></DomainList>
     </div>
   </div>
 </template>
@@ -101,48 +14,12 @@
 <script>
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
+import DomainList from "./components/DomainList";
 
 export default {
 	name: "app",
-	data() {
-		return {
-			prefix: "",
-			sufix: "",
-			prefixos: ["Air", "Jet", "Flight"],
-			sufixos: ["Hub", "Station", "Mart"]
-		};
-	},
-	methods: {
-		addPrefix(prefix) {
-			this.prefixos.push(prefix);
-			this.prefix = "";
-		},
-		deletePrefixos(prefix) {
-			this.prefixos.splice(this.prefixos.indexOf(prefix), 1);
-		},
-		addSufix(sufix) {
-			this.sufixos.push(sufix);
-			this.sufix = "";
-		},
-		deleteSufixos(sufix) {
-			this.sufixos.splice(this.sufixos.indexOf(sufix), 1);
-		}
-	},
-	computed: {
-		domains(){
-			const domains = [];
-			for(const prefix of this.prefixos) {
-				for(const sufix of this.sufixos) {
-					const name = prefix + sufix;
-					const checkout = `https://checkout.hostgator.com.br/?a=add&sld=${name.toLowerCase()}&tld=.com.br`;
-					domains.push({
-						name,
-						checkout
-					});
-				}
-			}
-			return domains;
-		}
+	components: {
+		DomainList
 	}
 };
 </script>
