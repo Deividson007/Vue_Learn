@@ -20,7 +20,7 @@
         </ul>
         <br />
         <div class="input-group">
-          <input type="text" class="form-control" v-model="item" v-on:keyup.enter="addItem(item)" placeholder="digite o item" />
+          <input type="text" class="form-control" v-model="item" v-on:keyup.enter="addItem(item)" v-bind:placeholder="placeholder" />
           <div class="input-group-append">
             <button class="btn btn-info" v-on:click="addItem(item)">
               <span class="fa fa-plus"></span>
@@ -35,7 +35,7 @@
 <script>
 export default {
 	name: "AppItemList",
-	props: ["title" ,"items"],
+	props: ["placeholder", "title", "items"],
 	data () {
 		return {
 			item: ""

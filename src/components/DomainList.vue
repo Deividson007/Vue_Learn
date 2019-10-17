@@ -4,10 +4,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md">
-            <AppItemList title="Prefixos" v-bind:items="prefixos" v-on:addItem="addPrefix" v-on:deleteItem="deletePrefixos"></AppItemList>
+            <AppItemList title="Prefixos" placeholder="Digite o prefixo" v-bind:items="prefixos" v-on:addItem="addPrefix" v-on:deleteItem="deletePrefixos"></AppItemList>
           </div>
           <div class="col-md">
-            <AppItemList title="Sufixos" v-bind:items="sufixos" v-on:addItem="addSufix" v-on:deleteItem="deleteSufixos"></AppItemList>
+            <AppItemList title="Sufixos" placeholder="Digite o sufixo" v-bind:items="sufixos" v-on:addItem="addSufix" v-on:deleteItem="deleteSufixos"></AppItemList>
           </div>
         </div>
         <br>
